@@ -5,7 +5,9 @@
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 
-public class JCipherTester {
+public final class JCipherTester {
+  
+  private JCipherTester(){}
 
 /**
 * Tests the specified class with a specific string
@@ -16,9 +18,9 @@ public class JCipherTester {
 * @return whether the implementation correctly enciphers/deciphers the text
 */
 public static boolean test(String className, String text) throws
-  ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
+  ClassNotFoundException, NoSuchMethodException, IllegalAccessException, 
   InvocationTargetException {
-  Class c = Class.forName(className);
+  Class<?> c = Class.forName(className);
   Method encipher = c.getMethod("encipher");
   Method decipher = c.getMethod("decipher");
   String enciphered = (String) encipher.invoke(text);
