@@ -35,7 +35,14 @@ public static boolean test(String className, String text) throws
 *
 * @return whether the implementation passes the built-in checks
 */
-public static boolean test(String className) {
-  return false;
-}
+public static boolean test(String className) throws
+  ClassNotFoundException, NoSuchMethodException, IllegalAccessException, 
+  InvocationTargetException {
+  Class<?> c = Class.forName(className);
+  Method encipher = c.getMethod("encipher");
+  Method decipher = c.getMethod("decipher");
+  String enciphered = (String) encipher.invoke("hello");
+  String deciphered = (String) decipher.invoke(enciphered);
+  return deciphered.equals("hello");
+  }
 }
